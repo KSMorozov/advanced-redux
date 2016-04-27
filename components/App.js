@@ -1,8 +1,9 @@
 import React from 'react';
+import CommentBox from './CommentBox';
 
 const App = () =>
   <div>
-    Hello World!
+    <CommentBox />
   </div>;
 
 export default App;

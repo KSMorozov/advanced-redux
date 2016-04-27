@@ -6,6 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
+    "test": "mocha --compilers js:babel-core/register --require ./test/setup.js --recursive ./test",
+    "test:watch": "npm run test -- --watch",
     "lint": "eslint ."
   },
   "devDependencies": {
