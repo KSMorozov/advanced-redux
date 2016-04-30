@@ -8,15 +8,16 @@ class CommentBox extends Component {
 
   render() {
     return (
-      <div className="comment-box">
+      <form
+        onSubmit={(e) => { e.preventDefault(); this.setState({ comment: '' }); }}
+        className="comment-box">
         <textarea
           value={this.state.comment}
           onChange={(e) => { this.setState({ comment: e.target.value }); }} />
-        <button
-          onClick={(e) => { e.preventDefault(); this.setState({ comment: '' }); }}>
+        <button type="submit">
           Submit Comment!
         </button>
-      </div>
+      </form>
     );
   }
 }

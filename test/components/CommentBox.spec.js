@@ -18,7 +18,7 @@ describe('CommentBox', () => {
     const { output } = setup();
     const [textarea, button] = output.props.children;
 
-    expect(output.type).to.equal('div');
+    expect(output.type).to.equal('form');
     expect(output.props.className).to.equal('comment-box');
 
     expect(textarea.type).to.equal('textarea');
@@ -38,9 +38,9 @@ describe('CommentBox', () => {
 
   it('clears input, when comment submitted', () => {
     const { output, renderer } = setup();
-    const [textarea, button] = output.props.children;
+    const textarea = output.props.children[0];
     textarea.props.onChange({ target: { value: 'hello' } });
-    button.props.onClick({ preventDefault: () => {} });
+    output.props.onSubmit({ preventDefault: () => {} });
     const updated = renderer.getRenderOutput();
 
     expect(updated.props.children[0].props.value).to.equal('');
