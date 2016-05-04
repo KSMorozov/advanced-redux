@@ -1,13 +1,46 @@
-import React from 'react';
-import CommentBox from './CommentBox';
-import CommentList from './CommentList';
+import React, { PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as AppActions from '../actions/';
+import Header from './Header';
 
-const data = ['New Comment', 'Other New Comment'];
-
-const App = () =>
+const App = ({ children, newComment, comments, actions, loggedIn }) =>
   <div className="app">
-    <CommentBox />
-    <CommentList comments={data} />
+    <Header loggedIn={loggedIn} authenticate={actions.authenticate} />
+    {
+      children && React.cloneElement(children, {
+        comments,
+        newComment,
+        actions,
+        loggedIn,
+      })
+    }
   </div>;
 
-export default App;
+App.propTypes = {
+  comments: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  newComment: PropTypes.string.isRequired,
+  actions: PropTypes.object.isRequired,
+  children: PropTypes.node,
+  loggedIn: PropTypes.bool.isRequired,
+};
+
+function mapStateToProps(state) {
+  return {
+    comments: state.comments,
+    newComment: state.newComment,
+    loggedIn: state.authentication,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(AppActions, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,25 +1,30 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 
-class CommentBox extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { comment: '' };
-  }
+const handleFormSubmit = (changeNewCommentText, addComment, newComment, e) => {
+  e.preventDefault();
+  addComment(newComment);
+  changeNewCommentText({ target: { value: '' } });
+};
 
-  render() {
-    return (
-      <form
-        onSubmit={(e) => { e.preventDefault(); this.setState({ comment: '' }); }}
-        className="comment-box">
-        <textarea
-          value={this.state.comment}
-          onChange={(e) => { this.setState({ comment: e.target.value }); }} />
-        <button type="submit">
-          Submit Comment!
-        </button>
-      </form>
-    );
-  }
-}
+const CommentBox = ({ newComment, changeNewCommentText, addComment }) =>
+  <form
+    onSubmit={handleFormSubmit.bind(this, changeNewCommentText, addComment, newComment)}
+    className="form-group col-sm-6 col-sm-offset-3">
+    <textarea
+      className="form-control"
+      value={newComment}
+      onChange={changeNewCommentText} />
+    <button
+      style={{ borderRadius: '0px', marginTop: '10px' }}
+      className="btn btn-default"
+      type="submit" >
+      Submit Comment!
+    </button>
+  </form>;
+
+CommentBox.propTypes = {
+  changeNewCommentText: PropTypes.func.isRequired,
+  addComment: PropTypes.func.isRequired,
+};
 
 export default CommentBox;
