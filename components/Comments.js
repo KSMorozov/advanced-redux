@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import CommentBox from './CommentBox';
 import CommentList from './CommentList';
 
-const Main = ({ comments, newComment, actions }) =>
+const Comments = ({ comments, newComment, actions }) =>
   <section>
     Comments Section:
     <CommentList comments={comments} />
@@ -12,7 +12,7 @@ const Main = ({ comments, newComment, actions }) =>
       addComment={actions.addComment} />
   </section>;
 
-Main.propTypes = {
+Comments.propTypes = {
   comments: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string.isRequired,
@@ -22,4 +22,4 @@ Main.propTypes = {
   actions: PropTypes.object.isRequired,
 };
 
-export default Main;
+export default Comments;

@@ -11,3 +11,12 @@ export function changeNewCommentText(event) {
 export function authenticate(loggedIn) {
   return { type: types.AUTHENTICATE, loggedIn };
 }
+
+export function fetchUsers() {
+  return { type: types.FETCH_USERS };
+}
+
+export function receiveUsers(users) {
+  console.log(users);
+  return { type: types.RECEIVE_USERS, users };
+}

@@ -3,8 +3,18 @@ import { Link } from 'react-router';
 
 const Authenticate = ({ loggedIn, authenticate }) => (
   loggedIn
-  ? <a onClick={authenticate.bind(this, false)} style={{ cursor: 'pointer' }}>Logout</a>
-  : <a onClick={authenticate.bind(this, true)} style={{ cursor: 'pointer' }}>Login</a>
+  ? (<a
+    className="nav-link"
+    onClick={authenticate.bind(this, false)}
+    style={{ cursor: 'pointer' }}>
+    Logout
+  </a>)
+  : (<a
+    className="nav-link"
+    onClick={authenticate.bind(this, true)}
+    style={{ cursor: 'pointer' }}>
+    Login
+  </a>)
 );
 
 Authenticate.propTypes = {
@@ -13,13 +23,16 @@ Authenticate.propTypes = {
 };
 
 const Header = ({ loggedIn, authenticate }) =>
-  <nav className="navbar navbar-light">
+  <nav className="navbar navbar-light bg-faded">
     <ul className="nav navbar-nav">
       <li className="nav-item">
-        <Link to="/">Home</Link>
+        <Link className="nav-link" to="/">Home</Link>
       </li>
       <li className="nav-item">
-        <Link to="comments">Comments</Link>
+        <Link className="nav-link" to="comments">Comments</Link>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link" to="users">Users</Link>
       </li>
       <li className="nav-item">
         <Authenticate loggedIn={loggedIn} authenticate={authenticate} />

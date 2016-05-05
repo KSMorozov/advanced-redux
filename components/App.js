@@ -4,36 +4,43 @@ import { connect } from 'react-redux';
 import * as AppActions from '../actions/';
 import Header from './Header';
 
-const App = ({ children, newComment, comments, actions, loggedIn }) =>
+const App = ({ children, newComment, comments, actions, loggedIn, users }) =>
   <div className="app">
     <Header loggedIn={loggedIn} authenticate={actions.authenticate} />
     {
       children && React.cloneElement(children, {
-        comments,
         newComment,
-        actions,
+        comments,
         loggedIn,
+        actions,
+        users,
       })
     }
   </div>;
 
 App.propTypes = {
+  newComment: PropTypes.string.isRequired,
   comments: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string.isRequired,
     })
   ).isRequired,
-  newComment: PropTypes.string.isRequired,
-  actions: PropTypes.object.isRequired,
-  children: PropTypes.node,
   loggedIn: PropTypes.bool.isRequired,
+  children: PropTypes.node,
+  actions: PropTypes.object.isRequired,
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    comments: state.comments,
     newComment: state.newComment,
+    comments: state.comments,
     loggedIn: state.authentication,
+    users: state.users,
   };
 }
 
