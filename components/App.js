@@ -5,7 +5,7 @@ import * as AppActions from '../actions/';
 import Header from './Header';
 
 const App = ({ children, newComment, comments, actions, loggedIn, users }) =>
-  <div className="app">
+  <div className="app row">
     <Header loggedIn={loggedIn} authenticate={actions.authenticate} />
     {
       children && React.cloneElement(children, {

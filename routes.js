@@ -6,10 +6,12 @@ import Data from './hocs/Data';
 import Comments from './components/Comments';
 import Users from './components/Users';
 import App from './components/App';
+import NotFound from './components/NotFound';
 
 export default (
   <Route path="/" component={App}>
     <Route path="comments" component={Enhance(Comments, [Auth])} />
     <Route path="users" component={Enhance(Users, [Auth, Data])} />
-  </Route>
+    <Route path="*" component={NotFound} />
+    </Route>
 );

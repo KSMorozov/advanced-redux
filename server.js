@@ -1,17 +1,33 @@
-var webpack = require('webpack');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var config = require('./webpack.config');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const config = require('./webpack.config');
+const nodemon = require('nodemon');
 
-var app = new (require('express'))();
-var port = 8080;
+const app = new (require('express'))();
+const port = 8080;
 
-var compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+const compiler = webpack(config);
+app.use(webpackDevMiddleware(compiler, { noInfo: true, lazy: true, publicPath: config.output.publicPath }));
 
-app.use(function (req, res) {
-  res.sendFile(__dirname + '/index.html');
-});
+app.use((req, res) => res.sendFile(__dirname + '/index.html'));
 
-app.listen(port, function(err) {
-  err ? console.error(err) : console.info('Listening on port %s. Open https://localhost:%s', port, port);
+app.listen(
+  port,
+  (err) => err ? console.error(err) : console.info('Listening on port %s. Open https://localhost:%s', port, port)
+);
+
+nodemon({
+  script: 'api.server.js',
+  ext: 'js',
+  watch: [
+    'api.server.js',
+    'backend/**/*.js'
+  ],
+  "ignore": [
+    '.git',
+    'node_modules/**/node_modules',
+    '.DS_Store',
+    'npm-debug.log',
+    'dist',
+  ]
 });
